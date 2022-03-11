@@ -50,14 +50,14 @@ CPatternGeneratorView::CPatternGeneratorView() noexcept
 {
 	m_pCurrentThread = NULL;
 	//m_iCounter = 0;
-	x = 400;
-	y = 200;
+	x = 300+150*cos(0); // mercury x coordinate
+	y = 200+100*sin(0);
 
-	x1 = 300 + 150 * cos(3);
-	y1 = 200 + 150 * sin(3);
+	x1 = 300 + 200 * cos(5);// venus x coordinate
+	y1 = 200 + 150 * sin(5);
 
-	x2 = 200 + 200 * cos(6);
-	y2 = 200 + 200 * sin(6);
+	x2 = 300 + 250 * cos(10); // earth x coordinate
+	y2 = 200 + 200 * sin(10); // earth y  coordinate
 	// TODO: add construction code here
 
 }
@@ -83,11 +83,11 @@ void CPatternGeneratorView::OnDraw(CDC* pDC)
 	if (!pDoc)
 		return;
 
-	pDC->Ellipse(500, 400, 100, 0); //earth
+	pDC->Ellipse(550, 400, 50, 0); //earth
 
-	pDC->Ellipse(450, 350, 150, 50); // venus
+	pDC->Ellipse(500, 350, 100, 50); // venus
 
-	pDC->Ellipse(400, 300, 200, 100); // mercury 
+	pDC->Ellipse(450, 300, 150, 100); // mercury 
 
 	CBrush brushyellow(RGB(255, 0, 0));
 	CBrush* pO1dBrush = pDC->SelectObject(&brushyellow);
@@ -208,14 +208,15 @@ UINT CPatternGeneratorView::StartThread(LPVOID Param)
 	int j = 0;
 	while (1)
 	{
-		j = j + 6;
-		pView->x = 300 + 100 * cos(j); //l
+		
+		pView->x = 300 + 150 * cos(j); //l
 		pView->y = 200 + 100 * sin(j); //b
-		pView->x1 = 300 + 150 * cos(j + 3);
+		pView->x1 = 300 + 200 * cos(j + 3);
 		pView->y1 = 200 + 150 * sin(j + 3);
 
-		pView->x2 = 300 + 200 * cos(j + 10);
-		pView->y2 = 200 + 200 * sin(j + 10);
+		pView->x2 = 300 + 250 * cos(j + 6);
+		pView->y2 = 200 + 200 * sin(j + 6);
+		j = j + 6;
 		pView->Invalidate();
 		Sleep(100);
 	} 
